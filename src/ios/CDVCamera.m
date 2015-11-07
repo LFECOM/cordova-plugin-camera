@@ -709,6 +709,22 @@ static NSString* toBase64(NSData* data) {
 
 @implementation CDVCameraPicker
 
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+
+{
+    return UIInterfaceOrientationMaskLandscape;
+    
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationLandscapeRight;
+}
+
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
