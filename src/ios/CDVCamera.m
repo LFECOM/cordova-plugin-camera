@@ -204,7 +204,7 @@ static NSString* toBase64(NSData* data) {
                 [weakSelf displayPopover:pictureOptions.popoverOptions];
                 weakSelf.hasPendingOperation = NO;
             } else {
-                [weakSelf.viewController presentViewController:cameraPicker animated:YES completion:^{
+                [weakSelf.viewController presentViewController:cameraPicker animated:NO completion:^{
                     weakSelf.hasPendingOperation = NO;
                 }];
             }
@@ -532,7 +532,7 @@ static NSString* toBase64(NSData* data) {
         cameraPicker.pickerPopoverController = nil;
         invoke();
     } else {
-        [[cameraPicker presentingViewController] dismissViewControllerAnimated:YES completion:invoke];
+        [[cameraPicker presentingViewController] dismissViewControllerAnimated:NO completion:invoke];
     }
 }
 
@@ -563,7 +563,7 @@ static NSString* toBase64(NSData* data) {
         weakSelf.pickerController = nil;
     };
 
-    [[cameraPicker presentingViewController] dismissViewControllerAnimated:YES completion:invoke];
+    [[cameraPicker presentingViewController] dismissViewControllerAnimated:NO completion:invoke];
 }
 
 - (CLLocationManager*)locationManager
@@ -710,17 +710,6 @@ static NSString* toBase64(NSData* data) {
 
 @implementation CDVCameraPicker
 
-//- (BOOL)shouldAutorotate {
-//    return YES;
-//}
-//
-//- (NSUInteger)supportedInterfaceOrientations
-//
-//{
-//    return UIInterfaceOrientationMaskLandscape;
-//    
-//}
-
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
@@ -753,11 +742,15 @@ static NSString* toBase64(NSData* data) {
         cameraPicker.mediaTypes = @[(NSString*)kUTTypeImage];
         // We can only set the camera device if we're actually using the camera.
         cameraPicker.cameraDevice = pictureOptions.cameraDirection;
+        
     } else if (pictureOptions.mediaType == MediaTypeAll) {
         cameraPicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:cameraPicker.sourceType];
+        cameraPicker.modalPresentationStyle = UIModalPresentationCurrentContext;
     } else {
         NSArray* mediaArray = @[(NSString*)(pictureOptions.mediaType == MediaTypeVideo ? kUTTypeMovie : kUTTypeImage)];
         cameraPicker.mediaTypes = mediaArray;
+        cameraPicker.modalPresentationStyle = UIModalPresentationCurrentContext;
+
     }
     
     return cameraPicker;
