@@ -187,6 +187,7 @@ static NSString* toBase64(NSData* data) {
         // we need to capture this state for memory warnings that dealloc this object
         cameraPicker.webView = weakSelf.webView;
         
+        
         // Perform UI operations on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             // If a popover is already open, close it; we only want one at a time.
@@ -709,21 +710,16 @@ static NSString* toBase64(NSData* data) {
 
 @implementation CDVCameraPicker
 
-- (BOOL)shouldAutorotate {
-    return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-
-{
-    return UIInterfaceOrientationMaskLandscape;
-    
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationLandscapeRight;
-}
+//- (BOOL)shouldAutorotate {
+//    return YES;
+//}
+//
+//- (NSUInteger)supportedInterfaceOrientations
+//
+//{
+//    return UIInterfaceOrientationMaskLandscape;
+//    
+//}
 
 - (BOOL)prefersStatusBarHidden
 {
